@@ -28,7 +28,7 @@ func main() {
 
 	if projectId == "" {
 		fmt.Println(projectId)
-		fmt.Println("Missing project id, please set you GCP_PROJECT_ID env varibale or pass it as a flag {--project <project id>}")
+		fmt.Println("Missing project id, please set you GCP_PROJECT_ID env varibale or pass it as a flag {-project <project id>}")
 		return
 	}
 
