@@ -49,7 +49,7 @@ func finder(client *firestore.Client) {
 	data = tview.NewTextView().SetDynamicColors(true)
 	data.SetBorder(true).SetTitle("Data")
 	input = tview.NewInputField()
-	input.SetBorder(true).SetTitle("Document lookup")
+	input.SetBorder(true).SetTitle("Document lookup (/)")
 
 	collections.SetDoneFunc(func() {
 		app.Stop()
