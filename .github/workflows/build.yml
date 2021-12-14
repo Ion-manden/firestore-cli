@@ -1,4 +1,4 @@
-name: build-and-release
+name: Go
 
 on:
   push:
@@ -20,12 +20,10 @@ jobs:
     - name: Build
       run: go build -o fsctl -v cmd/*.go
 
-    - name: release 
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - uses: wangyoucao577/go-release-action@v1.22
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: linux
-          goarch: amd64
+    - name: release
+      uses: wangyoucao577/go-release-action@v1.22
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        goos: linux
+        goarch: amd64
+
