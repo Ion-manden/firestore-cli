@@ -22,13 +22,10 @@ jobs:
     - name: Build
       run: go build -o fsctl -v cmd/*.go
 
-    - name: Run GoReleaser
+    - name: Install GoReleaser
       uses: goreleaser/goreleaser-action@v2
       with:
-        distribution: goreleaser
-        version: latest
-        workdir: cmd
-        args: release --rm-dist
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        install-only: true
 
+    - name: Release
+      run: goreleaser release
