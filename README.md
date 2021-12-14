@@ -4,13 +4,13 @@ firestore-cli is a combined cli and terminal ui created to lookup firestore docu
 
 For now you have to build from source yourself and moving it to a globally available folder.
 ```
-go build -o fs cmd/*.go 
+go build -o fsctl cmd/*.go 
 
-sudo chmod +x fs
+sudo chmod +x fsctl
 
-sudo mv fs /usr/local/bin/fs
+sudo mv fsctl /usr/local/bin/fs
 
-fs
+fsctl
 ```
 
 
