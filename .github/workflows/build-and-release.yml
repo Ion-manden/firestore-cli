@@ -2,9 +2,8 @@ name: build-and-release
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - '*'
 
 jobs:
   build-and-release:
