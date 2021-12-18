@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 
+	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"google.golang.org/api/option"
 )
@@ -86,6 +87,36 @@ func main() {
 			fmt.Println()
 		}
 
+	case "count":
+		// if two arguments, get doc from collection
+		if len(cmdArgs) != 2 {
+			fmt.Println("get needs exactly 1 arguments, {collection id}")
+			return
+		}
+
+		// Ask for confirmation
+		fmt.Println("WARNING - Costly operation")
+		fmt.Println("As firestore does not have a count method, the only way to count documents is to read them all and count the results")
+		fmt.Println("This means GCP will charge you for document reads for every document in your collection")
+		fmt.Println("Are you sure you want to proceed? (type YES to continue)")
+		var response string
+		_, err := fmt.Scanln(&response)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if response != "YES" {
+			fmt.Println("Operation canceled")
+			return
+		}
+
+		docs, err := client.Collection(cmdArgs[1]).Select(firestore.DocumentID).Documents(context.Background()).GetAll()
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		count := len(docs)
+		fmt.Println(fmt.Sprintf("Total of %d documents in %v", count, cmdArgs[1]))
+
 	case "get":
 		// if two arguments, get doc from collection
 		if len(cmdArgs) != 3 {
@@ -106,6 +137,7 @@ func main() {
 		}
 
 		fmt.Println(string(j))
+
 	default:
 		fmt.Println("argument not recognized")
 		fmt.Println("Use tui to start the terminal ui")
