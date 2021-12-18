@@ -38,7 +38,8 @@ brews:
 
     tap:
       owner: Ion-manden
-      name: firestore-cli
+      name: homebrew-firestore-cli
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
 
     url_template: "https://github.com/Ion-manden/firestore-cli/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
 
