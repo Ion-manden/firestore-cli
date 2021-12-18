@@ -57,11 +57,11 @@ brews:
 
     # Caveats for the user of your binary.
     # Default is empty.
-    caveats: "How to use this binary"
+    caveats: "Refer to README or documentation on the github page"
 
     # Your app's homepage.
     # Default is empty.
-    homepage: "https://example.com/"
+    homepage: "https://github.com/Ion-manden/firestore-cli"
 
     # Template of your app's description.
     # Default is empty.
