@@ -1,4 +1,4 @@
-module firestore-cli
+module github.com/Ion-manden/firestore-cli
 
 go 1.16
 
