@@ -4,7 +4,7 @@ firestore-cli is a combined cli and terminal ui created to lookup firestore docu
 
 ## Installation
 
-## Homebrew
+### Homebrew
 ```
 # add the repository
 brew tab Ion-manden/firestore-cli

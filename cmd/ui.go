@@ -1,4 +1,19 @@
-package main
+/*
+Copyright © 2021 NAME HERE <EMAIL ADDRESS>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+package cmd
 
 import (
 	"context"
@@ -7,9 +22,47 @@ import (
 	"log"
 
 	"cloud.google.com/go/firestore"
+	firebase "firebase.google.com/go"
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"github.com/spf13/cobra"
+	"google.golang.org/api/option"
 )
+
+// uiCmd represents the ui command
+var uiCmd = &cobra.Command{
+	Use:     "ui",
+	Aliases: []string{"tui"},
+	Short:   "Open terminal ui to browse your collections",
+	Long:    `The terminal ui is created to quickly browse your collections and documents.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// start firestore client
+		ctx := context.Background()
+		conf := &firebase.Config{ProjectID: projectId}
+		sa := option.WithCredentialsFile(credentialsFile)
+		fba, err := firebase.NewApp(ctx, conf, sa)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		client, err = fba.Firestore(ctx)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		defer client.Close()
+
+		// Start the application.
+		app = tview.NewApplication()
+		finder(client)
+		if err := app.Run(); err != nil {
+			fmt.Printf("Error running application: %s\n", err)
+		}
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(uiCmd)
+}
 
 type currenctSelectedCollection struct {
 	i            int
@@ -27,16 +80,6 @@ var (
 	input              *tview.InputField
 	currenctCollection currenctSelectedCollection
 )
-
-// Main entry point.
-func startTui(client *firestore.Client) {
-	// Start the application.
-	app = tview.NewApplication()
-	finder(client)
-	if err := app.Run(); err != nil {
-		fmt.Printf("Error running application: %s\n", err)
-	}
-}
 
 func finder(client *firestore.Client) {
 
