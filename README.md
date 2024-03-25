@@ -48,3 +48,6 @@ Count all documents in a collection, due to the way firestore works this is a co
 ##### tui
 `fsctl tui`
 Opens a terminal ui where you can explore your collections and documents.
+
+## Other projects like this
+[Firestore terminal ui written in c#](https://github.com/tznind/nfirestore-cli)
